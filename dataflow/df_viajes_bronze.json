@@ -1,5 +1,5 @@
 {
-	"name": "df_viajes",
+	"name": "df_viajes_bronze",
 	"properties": {
 		"folder": {
 			"name": "bronze"
@@ -36,13 +36,30 @@
 					"name": "source4"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "dw_sql_viajes",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "union1"
 				},
 				{
 					"name": "select1"
+				},
+				{
+					"name": "union2"
+				},
+				{
+					"name": "select2"
+				},
+				{
+					"name": "union3"
 				}
 			],
 			"scriptLines": [
@@ -122,11 +139,64 @@
 				"          HoraLlegada = hora_llegada,",
 				"          ValidacionesTarjeta = pasajeros_reportados,",
 				"          KmRecorridos = km_recorridos,",
-				"          estado_viaje,",
+				"          EstadoViaje = estado_viaje,",
 				"          tipo_metrica",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select1"
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1, select2 union(byName: true)~> union2",
+				"union1 select(mapColumn(",
+				"          ViajeId = id_viaje,",
+				"          RutaHistoricaId = cod_ruta,",
+				"          VehiculoId = nro_bus,",
+				"          FechaServicio = fecha_servicio,",
+				"          HoraProgramada = hora_programada,",
+				"          HoraSalida = hora_salida,",
+				"          HoraLlegada = hora_llegada,",
+				"          ValidacionesTarjeta = pasajeros_estimados,",
+				"          KmRecorridos = km_recorridos,",
+				"          EstadoViaje = estado_viaje,",
+				"          tipo_metrica",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select2",
+				"union2, source2 union(byName: true)~> union3",
+				"union3 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          AnioFuente as string,",
+				"          ViajeId as string,",
+				"          RutaHistoricaId as string,",
+				"          VehiculoId as string,",
+				"          FechaServicio as string,",
+				"          HoraProgramada as string,",
+				"          HoraSalida as string,",
+				"          HoraLlegada as string,",
+				"          ValidacionesTarjeta as string,",
+				"          KmRecorridos as string,",
+				"          EstadoViaje as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          AnioFuente,",
+				"          ViajeId,",
+				"          RutaHistoricaId,",
+				"          VehiculoId,",
+				"          FechaServicio,",
+				"          HoraProgramada,",
+				"          HoraSalida,",
+				"          HoraLlegada,",
+				"          ValidacionesTarjeta,",
+				"          KmRecorridos,",
+				"          EstadoViaje",
+				"     )) ~> sink1"
 			]
 		}
 	}
