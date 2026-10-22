@@ -520,668 +520,668 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/xls_bronce_demanda_paradas_2022')]",
+			"name": "[concat(parameters('factoryName'), '/dw_sql_demandas_paradas')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "sa_transporte",
+					"referenceName": "sql_dw_transporte",
 					"type": "LinkedServiceReference"
 				},
 				"folder": {
-					"name": "bronze/excels"
+					"name": "bronze/sql"
 				},
 				"annotations": [],
-				"type": "Excel",
-				"typeProperties": {
-					"sheetName": "Demanda_Paradas",
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "operacion_2022.xlsx",
-						"folderPath": "datos_xls",
-						"fileSystem": "raw"
-					},
-					"firstRowAsHeader": true
-				},
+				"type": "AzureSqlTable",
 				"schema": [
 					{
-						"name": "fecha_servicio",
-						"type": "String"
+						"name": "AnioFuente",
+						"type": "varchar"
 					},
 					{
-						"name": "cod_ruta",
-						"type": "String"
+						"name": "DemandaId",
+						"type": "varchar"
 					},
 					{
-						"name": "nro_parada",
-						"type": "String"
+						"name": "FechaServicio",
+						"type": "varchar"
 					},
 					{
-						"name": "franja",
-						"type": "String"
+						"name": "RutaHistoricaId",
+						"type": "varchar"
 					},
 					{
-						"name": "estimacion_abordajes",
-						"type": "String"
+						"name": "ParadaHistoricaId",
+						"type": "varchar"
 					},
 					{
-						"name": "estimacion_descensos",
-						"type": "String"
+						"name": "Franja",
+						"type": "varchar"
 					},
 					{
-						"name": "demanda_no_atendida",
-						"type": "String"
+						"name": "ValidacionesTarjeta",
+						"type": "varchar"
 					},
 					{
-						"name": "metodo",
-						"type": "String"
+						"name": "Descensos",
+						"type": "varchar"
+					},
+					{
+						"name": "DemandaNoAtendida",
+						"type": "varchar"
+					},
+					{
+						"name": "Metodo",
+						"type": "varchar"
 					}
-				]
+				],
+				"typeProperties": {
+					"schema": "bronze",
+					"table": "DemandaParadasAzure"
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/sa_transporte')]"
+				"[concat(variables('factoryId'), '/linkedServices/sql_dw_transporte')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/xls_bronce_incidentes_2022')]",
+			"name": "[concat(parameters('factoryName'), '/dw_sql_incidente_ruta')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "sa_transporte",
+					"referenceName": "sql_dw_transporte",
 					"type": "LinkedServiceReference"
 				},
 				"folder": {
-					"name": "bronze/excels"
+					"name": "bronze/sql"
 				},
 				"annotations": [],
-				"type": "Excel",
-				"typeProperties": {
-					"sheetName": "Incidentes",
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "operacion_2022.xlsx",
-						"folderPath": "datos_xls",
-						"fileSystem": "raw"
-					},
-					"firstRowAsHeader": true
-				},
+				"type": "AzureSqlTable",
 				"schema": [
 					{
-						"name": "id_incidente",
-						"type": "String"
+						"name": "AnioFuente",
+						"type": "varchar"
 					},
 					{
-						"name": "tipo",
-						"type": "String"
+						"name": "IncidenteId",
+						"type": "varchar"
 					},
 					{
-						"name": "severidad",
-						"type": "String"
+						"name": "RutaHistoricaId",
+						"type": "varchar"
 					},
 					{
-						"name": "fecha_inicio",
-						"type": "String"
-					},
-					{
-						"name": "hora_inicio",
-						"type": "String"
-					},
-					{
-						"name": "fecha_fin",
-						"type": "String"
-					},
-					{
-						"name": "hora_fin",
-						"type": "String"
-					},
-					{
-						"name": "fecha_registro",
-						"type": "String"
-					},
-					{
-						"name": "rutas_afectadas",
-						"type": "String"
-					},
-					{
-						"name": "vehiculo_afectado",
-						"type": "String"
-					},
-					{
-						"name": "descripcion",
-						"type": "String"
+						"name": "EsPrincipal",
+						"type": "varchar"
 					}
-				]
+				],
+				"typeProperties": {
+					"schema": "bronze",
+					"table": "IncidenteRutaAzure"
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/sa_transporte')]"
+				"[concat(variables('factoryId'), '/linkedServices/sql_dw_transporte')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/xls_bronce_notas_fuente_2022')]",
+			"name": "[concat(parameters('factoryName'), '/dw_sql_incidentes')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "sa_transporte",
+					"referenceName": "sql_dw_transporte",
 					"type": "LinkedServiceReference"
 				},
 				"folder": {
-					"name": "bronze/excels"
+					"name": "bronze/sql"
 				},
 				"annotations": [],
-				"type": "Excel",
-				"typeProperties": {
-					"sheetName": "Notas_fuente",
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "operacion_2022.xlsx",
-						"folderPath": "datos_xls",
-						"fileSystem": "raw"
-					},
-					"firstRowAsHeader": true
-				},
+				"type": "AzureSqlTable",
 				"schema": [
 					{
-						"name": "elemento",
-						"type": "String"
+						"name": "AnioFuente",
+						"type": "varchar"
 					},
 					{
-						"name": "detalle",
-						"type": "String"
+						"name": "IncidenteId",
+						"type": "varchar"
+					},
+					{
+						"name": "TipoIncidente",
+						"type": "varchar"
+					},
+					{
+						"name": "Severidad",
+						"type": "varchar"
+					},
+					{
+						"name": "FechaHoraInicio",
+						"type": "varchar"
+					},
+					{
+						"name": "FechaHoraFin",
+						"type": "varchar"
+					},
+					{
+						"name": "FechaHoraRegistro",
+						"type": "varchar"
+					},
+					{
+						"name": "VehiculoId",
+						"type": "varchar"
+					},
+					{
+						"name": "Descripcion",
+						"type": "varchar"
 					}
-				]
+				],
+				"typeProperties": {
+					"schema": "bronze",
+					"table": "IncidentesAzure"
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/sa_transporte')]"
+				"[concat(variables('factoryId'), '/linkedServices/sql_dw_transporte')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/xsl_bronce_paradas_2022')]",
+			"name": "[concat(parameters('factoryName'), '/dw_sql_paradas')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "sa_transporte",
+					"referenceName": "sql_dw_transporte",
 					"type": "LinkedServiceReference"
 				},
 				"folder": {
-					"name": "bronze/excels"
+					"name": "bronze/sql"
 				},
 				"annotations": [],
-				"type": "Excel",
-				"typeProperties": {
-					"sheetName": "Paradas",
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "operacion_2022.xlsx",
-						"folderPath": "datos_xls",
-						"fileSystem": "raw"
-					},
-					"firstRowAsHeader": true
-				},
+				"type": "AzureSqlTable",
 				"schema": [
 					{
-						"name": "nro_parada",
-						"type": "String"
+						"name": "AnioFuente",
+						"type": "varchar"
 					},
 					{
-						"name": "nombre_parada",
-						"type": "String"
+						"name": "ParadaHistoricaId",
+						"type": "varchar"
 					},
 					{
-						"name": "zona",
-						"type": "String"
+						"name": "CodigoPublicado",
+						"type": "varchar"
 					},
 					{
-						"name": "latitud",
-						"type": "String"
+						"name": "NombreParada",
+						"type": "varchar"
 					},
 					{
-						"name": "longitud",
-						"type": "String"
+						"name": "Zona",
+						"type": "varchar"
 					},
 					{
-						"name": "fecha_desde",
-						"type": "String"
+						"name": "Latitud",
+						"type": "varchar"
 					},
 					{
-						"name": "fecha_hasta",
-						"type": "String"
+						"name": "Longitud",
+						"type": "varchar"
 					},
 					{
-						"name": "estado",
-						"type": "String"
+						"name": "VigenciaDesde",
+						"type": "varchar"
+					},
+					{
+						"name": "VigenciaHasta",
+						"type": "varchar"
+					},
+					{
+						"name": "Estado",
+						"type": "varchar"
 					}
-				]
+				],
+				"typeProperties": {
+					"schema": "bronze",
+					"table": "ParadasAzure"
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/sa_transporte')]"
+				"[concat(variables('factoryId'), '/linkedServices/sql_dw_transporte')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/xls_bronce_rutas_2022')]",
+			"name": "[concat(parameters('factoryName'), '/dw_sql_rutas')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "sa_transporte",
+					"referenceName": "sql_dw_transporte",
 					"type": "LinkedServiceReference"
 				},
 				"folder": {
-					"name": "bronze/excels"
+					"name": "bronze/sql"
 				},
 				"annotations": [],
-				"type": "Excel",
-				"typeProperties": {
-					"sheetName": "Rutas",
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "operacion_2022.xlsx",
-						"folderPath": "datos_xls",
-						"fileSystem": "raw"
-					}
-				},
+				"type": "AzureSqlTable",
 				"schema": [
 					{
-						"type": "String"
+						"name": "AnioFuente",
+						"type": "varchar"
 					},
 					{
-						"type": "String"
+						"name": "RutaHistoricaId",
+						"type": "varchar"
 					},
 					{
-						"type": "String"
+						"name": "CodigoRuta",
+						"type": "varchar"
 					},
 					{
-						"type": "String"
+						"name": "NombreRuta",
+						"type": "varchar"
 					},
 					{
-						"type": "String"
+						"name": "Origen",
+						"type": "varchar"
 					},
 					{
-						"type": "String"
+						"name": "Destino",
+						"type": "varchar"
 					},
 					{
-						"type": "String"
+						"name": "VigenciaDesde",
+						"type": "varchar"
+					},
+					{
+						"name": "VigenciaHasta",
+						"type": "varchar"
+					},
+					{
+						"name": "Estado",
+						"type": "varchar"
 					}
-				]
+				],
+				"typeProperties": {
+					"schema": "bronze",
+					"table": "RutasAzure"
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/sa_transporte')]"
+				"[concat(variables('factoryId'), '/linkedServices/sql_dw_transporte')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/xls_bronce_vehiculos_2022')]",
+			"name": "[concat(parameters('factoryName'), '/dw_sql_vehiculos')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "sa_transporte",
+					"referenceName": "sql_dw_transporte",
 					"type": "LinkedServiceReference"
 				},
 				"folder": {
-					"name": "bronze/excels"
+					"name": "bronze/sql"
 				},
 				"annotations": [],
-				"type": "Excel",
-				"typeProperties": {
-					"sheetName": "Vehiculos",
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "operacion_2022.xlsx",
-						"folderPath": "datos_xls",
-						"fileSystem": "raw"
-					},
-					"firstRowAsHeader": true
-				},
+				"type": "AzureSqlTable",
 				"schema": [
 					{
-						"name": "nro_bus",
-						"type": "String"
+						"name": "AnioFuente",
+						"type": "varchar"
 					},
 					{
-						"name": "placa",
-						"type": "String"
+						"name": "VehiculoId",
+						"type": "varchar"
 					},
 					{
-						"name": "tipo_bus",
-						"type": "String"
+						"name": "Placa",
+						"type": "varchar"
 					},
 					{
-						"name": "capacidad",
-						"type": "String"
+						"name": "TipoVehiculo",
+						"type": "varchar"
 					},
 					{
-						"name": "fecha_desde",
-						"type": "String"
+						"name": "CapacidadEfectiva",
+						"type": "varchar"
 					},
 					{
-						"name": "fecha_hasta",
-						"type": "String"
+						"name": "VigenciaDesde",
+						"type": "varchar"
 					},
 					{
-						"name": "estado",
-						"type": "String"
+						"name": "VigenciaHasta",
+						"type": "varchar"
+					},
+					{
+						"name": "Estado",
+						"type": "varchar"
 					}
-				]
+				],
+				"typeProperties": {
+					"schema": "bronze",
+					"table": "VehiculosAzure"
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/sa_transporte')]"
+				"[concat(variables('factoryId'), '/linkedServices/sql_dw_transporte')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/xls_bronce_viajes_2022')]",
+			"name": "[concat(parameters('factoryName'), '/dw_sql_viajes')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "sa_transporte",
+					"referenceName": "sql_dw_transporte",
 					"type": "LinkedServiceReference"
 				},
 				"folder": {
-					"name": "bronze/excels"
+					"name": "bronze/sql"
 				},
 				"annotations": [],
-				"type": "Excel",
-				"typeProperties": {
-					"sheetName": "Viajes",
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "operacion_2022.xlsx",
-						"folderPath": "datos_xls",
-						"fileSystem": "raw"
-					},
-					"firstRowAsHeader": true
-				},
+				"type": "AzureSqlTable",
 				"schema": [
 					{
-						"name": "id_viaje",
-						"type": "String"
+						"name": "AnioFuente",
+						"type": "varchar"
 					},
 					{
-						"name": "cod_ruta",
-						"type": "String"
+						"name": "ViajeId",
+						"type": "varchar"
 					},
 					{
-						"name": "nro_bus",
-						"type": "String"
+						"name": "RutaHistoricaId",
+						"type": "varchar"
 					},
 					{
-						"name": "fecha_servicio",
-						"type": "String"
+						"name": "VehiculoId",
+						"type": "varchar"
 					},
 					{
-						"name": "hora_programada",
-						"type": "String"
+						"name": "FechaServicio",
+						"type": "varchar"
 					},
 					{
-						"name": "hora_salida",
-						"type": "String"
+						"name": "HoraProgramada",
+						"type": "varchar"
 					},
 					{
-						"name": "hora_llegada",
-						"type": "String"
+						"name": "HoraSalida",
+						"type": "varchar"
 					},
 					{
-						"name": "pasajeros_estimados",
-						"type": "String"
+						"name": "HoraLlegada",
+						"type": "varchar"
 					},
 					{
-						"name": "km_recorridos",
-						"type": "String"
+						"name": "ValidacionesTarjeta",
+						"type": "varchar"
 					},
 					{
-						"name": "estado_viaje",
-						"type": "String"
+						"name": "KmRecorridos",
+						"type": "varchar"
 					},
 					{
-						"name": "tipo_metrica",
-						"type": "String"
+						"name": "EstadoViaje",
+						"type": "varchar"
 					}
-				]
+				],
+				"typeProperties": {
+					"schema": "bronze",
+					"table": "ViajesAzure"
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/sa_transporte')]"
+				"[concat(variables('factoryId'), '/linkedServices/sql_dw_transporte')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/xls_bronce_demanda_paradas_2023')]",
+			"name": "[concat(parameters('factoryName'), '/sql_demandas_paradas')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "sa_transporte",
+					"referenceName": "sql_erp_transporte",
 					"type": "LinkedServiceReference"
 				},
 				"folder": {
-					"name": "bronze/excels"
+					"name": "bronze/sql"
 				},
 				"annotations": [],
-				"type": "Excel",
-				"typeProperties": {
-					"sheetName": "Demanda_Paradas",
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "operacion_2023.xlsx",
-						"folderPath": "datos_xls",
-						"fileSystem": "raw"
-					},
-					"firstRowAsHeader": true
-				},
+				"type": "AzureSqlTable",
 				"schema": [
 					{
-						"name": "fecha_servicio",
-						"type": "String"
+						"name": "AnioFuente",
+						"type": "smallint",
+						"precision": 5
 					},
 					{
-						"name": "cod_ruta",
-						"type": "String"
+						"name": "DemandaId",
+						"type": "nvarchar"
 					},
 					{
-						"name": "nro_parada",
-						"type": "String"
+						"name": "FechaServicio",
+						"type": "date"
 					},
 					{
-						"name": "franja",
-						"type": "String"
+						"name": "RutaHistoricaId",
+						"type": "nvarchar"
 					},
 					{
-						"name": "estimacion_abordajes",
-						"type": "String"
+						"name": "ParadaHistoricaId",
+						"type": "nvarchar"
 					},
 					{
-						"name": "estimacion_descensos",
-						"type": "String"
+						"name": "Franja",
+						"type": "nvarchar"
 					},
 					{
-						"name": "demanda_no_atendida",
-						"type": "String"
+						"name": "ValidacionesTarjeta",
+						"type": "int",
+						"precision": 10
 					},
 					{
-						"name": "metodo",
-						"type": "String"
+						"name": "Descensos",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DemandaNoAtendida",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Metodo",
+						"type": "nvarchar"
 					}
-				]
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "DemandaParadasAzure"
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/sa_transporte')]"
+				"[concat(variables('factoryId'), '/linkedServices/sql_erp_transporte')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/xls_bronce_incidentes_2023')]",
+			"name": "[concat(parameters('factoryName'), '/sql_incidentes')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "sa_transporte",
+					"referenceName": "sql_erp_transporte",
 					"type": "LinkedServiceReference"
 				},
 				"folder": {
-					"name": "bronze/excels"
+					"name": "bronze/sql"
 				},
 				"annotations": [],
-				"type": "Excel",
-				"typeProperties": {
-					"sheetName": "Incidentes",
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "operacion_2023.xlsx",
-						"folderPath": "datos_xls",
-						"fileSystem": "raw"
-					},
-					"firstRowAsHeader": true
-				},
+				"type": "AzureSqlTable",
 				"schema": [
 					{
-						"name": "id_incidente",
-						"type": "String"
+						"name": "AnioFuente",
+						"type": "smallint",
+						"precision": 5
 					},
 					{
-						"name": "tipo",
-						"type": "String"
+						"name": "IncidenteId",
+						"type": "nvarchar"
 					},
 					{
-						"name": "severidad",
-						"type": "String"
+						"name": "TipoIncidente",
+						"type": "nvarchar"
 					},
 					{
-						"name": "fecha_inicio",
-						"type": "String"
+						"name": "Severidad",
+						"type": "nvarchar"
 					},
 					{
-						"name": "hora_inicio",
-						"type": "String"
+						"name": "FechaHoraInicio",
+						"type": "datetime2",
+						"scale": 0
 					},
 					{
-						"name": "fecha_fin",
-						"type": "String"
+						"name": "FechaHoraFin",
+						"type": "datetime2",
+						"scale": 0
 					},
 					{
-						"name": "hora_fin",
-						"type": "String"
+						"name": "FechaHoraRegistro",
+						"type": "datetime2",
+						"scale": 0
 					},
 					{
-						"name": "fecha_registro",
-						"type": "String"
+						"name": "VehiculoId",
+						"type": "nvarchar"
 					},
 					{
-						"name": "rutas_afectadas",
-						"type": "String"
-					},
-					{
-						"name": "vehiculo_afectado",
-						"type": "String"
-					},
-					{
-						"name": "descripcion",
-						"type": "String"
+						"name": "Descripcion",
+						"type": "nvarchar"
 					}
-				]
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "IncidentesAzure"
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/sa_transporte')]"
+				"[concat(variables('factoryId'), '/linkedServices/sql_erp_transporte')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/xls_bronce_notas_fuente_2023')]",
+			"name": "[concat(parameters('factoryName'), '/sql_incidentes_rutas')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "sa_transporte",
+					"referenceName": "sql_erp_transporte",
 					"type": "LinkedServiceReference"
 				},
 				"folder": {
-					"name": "bronze/excels"
+					"name": "bronze/sql"
 				},
 				"annotations": [],
-				"type": "Excel",
-				"typeProperties": {
-					"sheetName": "Notas_fuente",
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "operacion_2023.xlsx",
-						"folderPath": "datos_xls",
-						"fileSystem": "raw"
-					},
-					"firstRowAsHeader": true
-				},
+				"type": "AzureSqlTable",
 				"schema": [
 					{
-						"name": "elemento",
-						"type": "String"
+						"name": "AnioFuente",
+						"type": "smallint",
+						"precision": 5
 					},
 					{
-						"name": "detalle",
-						"type": "String"
+						"name": "IncidenteId",
+						"type": "nvarchar"
+					},
+					{
+						"name": "RutaHistoricaId",
+						"type": "nvarchar"
+					},
+					{
+						"name": "EsPrincipal",
+						"type": "bit"
 					}
-				]
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "IncidenteRutaAzure"
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/sa_transporte')]"
+				"[concat(variables('factoryId'), '/linkedServices/sql_erp_transporte')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/xls_bronce_paradas_2023')]",
+			"name": "[concat(parameters('factoryName'), '/sql_paradas')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "sa_transporte",
+					"referenceName": "sql_erp_transporte",
 					"type": "LinkedServiceReference"
 				},
 				"folder": {
-					"name": "bronze/excels"
+					"name": "bronze/sql"
 				},
 				"annotations": [],
-				"type": "Excel",
-				"typeProperties": {
-					"sheetName": "Paradas",
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "operacion_2023.xlsx",
-						"folderPath": "datos_xls",
-						"fileSystem": "raw"
-					},
-					"firstRowAsHeader": true
-				},
+				"type": "AzureSqlTable",
 				"schema": [
 					{
-						"name": "nro_parada",
-						"type": "String"
+						"name": "AnioFuente",
+						"type": "smallint",
+						"precision": 5
 					},
 					{
-						"name": "nombre_parada",
-						"type": "String"
+						"name": "ParadaHistoricaId",
+						"type": "nvarchar"
 					},
 					{
-						"name": "zona",
-						"type": "String"
+						"name": "CodigoPublicado",
+						"type": "nvarchar"
 					},
 					{
-						"name": "latitud",
-						"type": "String"
+						"name": "NombreParada",
+						"type": "nvarchar"
 					},
 					{
-						"name": "longitud",
-						"type": "String"
+						"name": "Zona",
+						"type": "nvarchar"
 					},
 					{
-						"name": "fecha_desde",
-						"type": "String"
+						"name": "Latitud",
+						"type": "decimal",
+						"precision": 9,
+						"scale": 6
 					},
 					{
-						"name": "fecha_hasta",
-						"type": "String"
+						"name": "Longitud",
+						"type": "decimal",
+						"precision": 9,
+						"scale": 6
 					},
 					{
-						"name": "estado",
-						"type": "String"
+						"name": "VigenciaDesde",
+						"type": "date"
+					},
+					{
+						"name": "VigenciaHasta",
+						"type": "date"
+					},
+					{
+						"name": "Estado",
+						"type": "nvarchar"
 					}
-				]
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "ParadasAzure"
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/sa_transporte')]"
+				"[concat(variables('factoryId'), '/linkedServices/sql_erp_transporte')]"
 			]
 		}
 	]
